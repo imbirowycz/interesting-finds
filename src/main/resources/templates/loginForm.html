@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <link href="../static/css/Style.css" th:href="@{/css/Style.css}" rel="stylesheet" />
+    <meta charset="UTF-8"/>
+    <title>Home</title>
+</head>
+<body style="padding-top: 10%">
+<div class="container" >
+    <div class="row">
+        <div class="col-lg-1 col-lg-offset-11">
+            <a href="/" th:href="@{/}"><button class="btn btn-default">Home</button></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-4 col-lg-4">
+            <form class="form-signin"  th:action="@{/processlogin}" method="post">
+                <h2 class="form-signin-heading white-text" style="text-align: center">Zaloguj się</h2>
+                <input name="user" type="text" class="form-control" placeholder="Email@" /><br/>
+                <input name="pass" type="password" class="form-control" placeholder="Hasło" /><br/>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj</button>
+                <a th:href="@{/user/register}"><h4>Zarejestruj</h4></a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="/webjars/jquery/2.0.3/jquery.min.js"></script>
+</body>
+</html>
