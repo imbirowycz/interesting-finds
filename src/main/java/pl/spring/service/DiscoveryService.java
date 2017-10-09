@@ -34,7 +34,31 @@ public class DiscoveryService {
     }
 
     public List<Discovery> findWszytkieDiscovery() {
-        List<Discovery> discoveries = discoveryRepository.findAll();
-        return discoveries;
+        return discoveryRepository.findAll();
+    }
+
+    /*
+    * Wyszukiwanie wekług podanego tytułu.
+    *
+    * */
+
+    public List<Discovery> wyszukaj(String tytul) {
+        return  discoveryRepository.findAllByTitle(tytul);
+    }
+
+    /*
+    * Sortowanie według podanego kryterium
+    * (param) - kryterium.
+    *
+    * mast be implements a param-(komenty).!!!!
+    *
+    * */
+
+    public List<Discovery> sortujWedlug(String param) {
+        List<Discovery> discoveryList = null;
+        if (param.equals("ocena")) discoveryList = discoveryRepository.findAllByOrderByUpvoteDesc();
+        if (param.equals("ranking")) discoveryList = discoveryRepository.findAllByOrderByRankingDesc();
+        if (param.equals("komenty")) discoveryList = discoveryRepository.findAllByOrderByUpvoteDesc();
+        return discoveryList;
     }
 }

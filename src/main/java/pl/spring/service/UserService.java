@@ -7,6 +7,8 @@ import pl.spring.entity.UserRole;
 import pl.spring.repository.UserRepository;
 import pl.spring.repository.UserRoleRepository;
 
+import java.util.List;
+
 /**
  * @author Andrzej I.
  * copyright 02.10.17.
@@ -34,4 +36,8 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public List<User> findAllUsers() {
+        List<User> userList = userRepository.findAll();
+        return userList;
+    }
 }

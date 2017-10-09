@@ -22,7 +22,11 @@ public class Discovery {
     private String description;
     @NotEmpty
     private String url;
-    private int up_vote;
+    @NotNull
+    private int ranking;
+    @NotNull
+    @Column(name = "upvote")
+    private int upvote;
     private int down_vote;
     @Transient
     private Long user_id;
@@ -33,13 +37,14 @@ public class Discovery {
     public Discovery() {
     }
 
-    public Discovery(String title, String description, String url, int up_vote, int down_vote, User user) {
+    public Discovery(String title, String description, String url, int up_vote, int down_vote,int ranking, User user) {
         this.title = title;
         this.description = description;
         this.url = url;
-        this.up_vote = up_vote;
+        this.upvote = up_vote;
         this.down_vote = down_vote;
         this.user = user;
+        this.ranking = ranking;
     }
 
     public Long getId() {
@@ -74,20 +79,20 @@ public class Discovery {
         this.url = url;
     }
 
-    public int getUp_vote() {
-        return up_vote;
+    public int getUp_Vote() {
+        return upvote;
     }
 
-    public void setUp_vote(int up_vote) {
-        this.up_vote = up_vote;
+    public void setUp_Vote(int up_Vote) {
+        this.upvote = up_Vote;
     }
 
-    public int getDown_vote() {
+    public int getDown_Vote() {
         return down_vote;
     }
 
-    public void setDown_vote(int down_vote) {
-        this.down_vote = down_vote;
+    public void setDown_Vote(int down_Vote) {
+        this.down_vote = down_Vote;
     }
 
     public User getUser() {
@@ -106,6 +111,14 @@ public class Discovery {
         return user_id;
     }
 
+    public int getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
+    }
+
     @Override
     public String toString() {
         return "Discovery{" +
@@ -113,9 +126,10 @@ public class Discovery {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
-                ", up_vote=" + up_vote +
-                ", down_vote=" + down_vote +
+                ", up_Vote=" + upvote +
+                ", down_Vote=" + down_vote +
                 ", user=" + user +
+                ", ranking=" + ranking +
                 '}';
     }
 }

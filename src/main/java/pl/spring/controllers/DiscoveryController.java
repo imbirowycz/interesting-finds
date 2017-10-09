@@ -8,6 +8,7 @@ import pl.spring.entity.Discovery;
 import pl.spring.service.DiscoveryService;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * @author Andrzej I.
@@ -35,5 +36,17 @@ public class DiscoveryController {
         String email = principal.getName();
         discoveryService.save(discovery, email);
         return "Dodano pomyślnie";
+    }
+
+    @GetMapping("/szukaj/tytul")
+    @ResponseBody
+    public List<Discovery> wyszukiwaniPoTytule(@RequestParam String param ) {
+        return discoveryService.wyszukaj(param);
+    }
+
+    @GetMapping("/sortuj")
+    @ResponseBody
+    public List<Discovery> sortowanie(@RequestParam String param) {
+        return discoveryService.sortujWedlug(param);
     }
 }

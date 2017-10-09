@@ -12,6 +12,7 @@ import pl.spring.entity.User;
 import pl.spring.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author Andrzej I.
@@ -45,6 +46,13 @@ public class UserController {
             userService.addWithDefaultRole(user);
             return "loginForm";
         }
+    }
+
+    @GetMapping("/getAll")
+    public String wyszukajWszystkichUżytkowników(Model model) {
+        List<User> allUserList = userService.findAllUsers();
+        model.addAttribute("allUserList", allUserList);
+        return "allUsersList";
     }
 
 }
