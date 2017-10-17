@@ -47,6 +47,7 @@ public class DiscoveryController {
     @GetMapping("/sortuj")
     @ResponseBody
     public List<Discovery> sortowanie(@RequestParam String param) {
+
         return discoveryService.sortujWedlug(param);
     }
 }

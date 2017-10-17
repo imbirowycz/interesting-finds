@@ -4,6 +4,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Andrzej I.
@@ -11,33 +14,41 @@ import javax.validation.constraints.NotNull;
  **/
 @Entity
 @Table(name = "discovery")
-public class Discovery {
+public class Discovery implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotEmpty
     private String title;
+
     @NotNull
     private String description;
+
     @NotEmpty
     private String url;
+
     @NotNull
     private int ranking;
+
     @NotNull
     @Column(name = "upvote")
     private int upvote;
     private int down_vote;
-    @Transient
-    private Long user_id;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "comments_id")
+    private Set<Comments> commentsList = new HashSet<>();
+
     public Discovery() {
     }
 
-    public Discovery(String title, String description, String url, int up_vote, int down_vote,int ranking, User user) {
+    public Discovery(String title, String description, String url, int up_vote, int down_vote,int ranking, User user, Set<Comments> commentsList) {
         this.title = title;
         this.description = description;
         this.url = url;
@@ -45,6 +56,7 @@ public class Discovery {
         this.down_vote = down_vote;
         this.user = user;
         this.ranking = ranking;
+        this.commentsList = commentsList;
     }
 
     public Long getId() {
@@ -103,20 +115,20 @@ public class Discovery {
         this.user = user;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
-
-    public Long getUser_id() {
-        return user_id;
-    }
-
     public int getRanking() {
         return ranking;
     }
 
     public void setRanking(int ranking) {
         this.ranking = ranking;
+    }
+
+    public Set<Comments> getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(Set<Comments> commentsList) {
+        this.commentsList = commentsList;
     }
 
     @Override
@@ -126,10 +138,11 @@ public class Discovery {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
-                ", up_Vote=" + upvote +
-                ", down_Vote=" + down_vote +
-                ", user=" + user +
                 ", ranking=" + ranking +
+                ", upvote=" + upvote +
+                ", down_vote=" + down_vote +
+                ", user=" + user +
+                ", commentsList=" + commentsList +
                 '}';
     }
 }

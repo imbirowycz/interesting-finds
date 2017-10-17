@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/webjars/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    <link href="../static/css/Style.css" th:href="@{/css/Style.css}" rel="stylesheet" />
-    <meta charset="UTF-8"/>
+
+    <th:block th:include="fragments/head::headers"></th:block>
     <title>Discovery Form</title>
 </head>
 <body>
 
 <h1>Dodaj discovery:</h1>
-<form action="#" method="post" th:action="@{/discovery/add}" th:object="${discovery}">
-    <p>Title: <input type="text" th:field="*{title}" /></p>
-    <p>Description: <input type="text" th:field="*{description}" /></p>
-    <p>Url: <input type="url" th:field="*{url}" /></p>
-    <p>Up_vote: <input type="number" th:field="*{up_Vote}" /></p>
-    <p>Down_vote: <input type="number" th:field="*{down_Vote}" /></p>
+    <form action="#" method="post" th:action="@{/discovery/add}" th:object="${discovery}">
+        <p>Title: <input type="text" th:field="*{title}" /></p>
+        <p>Description: <input type="text" th:field="*{description}" /></p>
+        <p>Url: <input type="url" th:field="*{url}" /></p>
+        <p>Up_vote: <input type="number" th:field="*{up_Vote}" /></p>
+        <p>Down_vote: <input type="number" th:field="*{down_Vote}" /></p>
 
-    <input type="submit" value="Save" />
-</form>
+        <input type="submit" value="Save" />
+    </form>
 
-<script src="/webjars/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="/webjars/jquery/2.0.3/jquery.min.js"></script>
 </body>
 </html>

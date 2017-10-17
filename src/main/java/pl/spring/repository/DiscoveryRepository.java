@@ -12,9 +12,9 @@ import java.util.List;
  *
  * Klasa komunikująca się z bazą danych (Discovery).
  **/
+
 @Repository
 public interface DiscoveryRepository extends JpaRepository<Discovery, Long> {
-
     /*
     * Wyszukiwanie według tytułu.
     * */
@@ -27,4 +27,6 @@ public interface DiscoveryRepository extends JpaRepository<Discovery, Long> {
     * Sortowanie według rankingu.
     * */
     List<Discovery> findAllByOrderByRankingDesc();
+
+    Discovery findById(Long id);
 }

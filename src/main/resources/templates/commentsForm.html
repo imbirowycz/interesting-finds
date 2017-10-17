@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/head::headers"></th:block>
+    <title>Kometaż</title>
+</head>
+<body>
+
+<h1>Dodaj komentaż:</h1>
+    <form action="#" method="post" th:action="@{/discovery/comments/add}" th:object="${comments}" >
+        <p>Title: <input type="text" th:field="*{description}"  /></p>
+        <input type="submit" value="Save" />
+    </form>
+</body>
+</html>

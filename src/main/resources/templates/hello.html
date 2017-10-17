@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/webjars/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" th:href="@{/css/Style.css}"/>
-    <meta charset="UTF-8"/>
+    <th:block th:include="fragments/head::headers"></th:block>
     <title>Home</title>
 </head>
 <style>
@@ -14,6 +11,8 @@
     /*background: url('/static/images/skarb.png');*/
     header {  padding-top: 30px;  margin-bottom: 30px;  min-height: 300px;  background-color:  #262626;  color: white;  }
 
+    /*footer { padding-top: 30px; background-color: #262626; color: white;  }*/
+
     .ocenianie {  text-align: center;  padding-top: 15px;  font-size: 20px;  height: 50px;  background-color: #EEEEEE;  }
 
     .white-text {  color: white;  }
@@ -22,245 +21,109 @@
 </style>
 
 <body>
-<!-- ************ Nawigacja: button login i log out, users, sort td..******************* -->
-<header th:style="'background-image:url('+${'/images/skarb.png'}+');background-position: left;background-repeat: no-repeat;background-size: 300px 300px;'">
-    <div class="logo">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-offset-2 col-lg-6 tekst-center">
-                    <p class="white-text">Jest dostępnych wiele różnych wersji Lorem Ipsum, ale większość
-                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
-                        które nawet w najmniejszym stopniu nie przypominają istniejących.
-                        est dostępnych wiele różnych wersji Lorem Ipsum</p>
-                </div>
-                <!-- ***** Sprawdza czy użytkownik zalogowany (if true: "Wyloguj się")*****-->
-                <div class="col-lg-offset-2 col-lg-2">
-                    <div sec:authorize="isAuthenticated()">
-                        <form action="logmeout" th:action="@{/logmeout}" method="post" >
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-default navbar-btn btn-group-justified">
-                                    Wyloguj się: <span class="glyphicon glyphicon-log-out"></span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- ***** Sprawdza czy użytkownik zalogowany (if false: "Zaloguj się")*****-->
-                    <div sec:authorize="isAnonymous()">
-                        <a th:href="@{/login}" class="href-none-decor"> <button type="button" class="btn btn-default navbar-btn btn-group-justified">
-                           Zaloguj się: <span class="glyphicon glyphicon-log-in"></span>
-                        </button></a>
-                    </div>
-                    <br />
-                    <a th:href="@{/user/getAll}" class="href-none-decor"><button type="button" class="btn btn-default navbar-btn btn-group-justified">
-                        Użytkownicy: <span class="glyphicon glyphicon-user"></span>
-                    </button></a>
-                </div>
-            </div>
-            <!-- ******** Przyciski nawigacji: Dodaj znaleźisko, sortuj, szukaj. ******-->
-            <div class="row" style="margin-top: 50px">
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <a th:href="@{/discovery/add}" class="href-none-decor">
-                            <button type="button" class="btn btn-default navbar-btn navbar-left">Dodaj znaleźisko</button>
-                        </a>
-                        <!-- ******* Sortowanie ********-->
-                        <div class="btn-group navbar-btn navbar-left" style="margin-left: 20px">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Sortuj według: <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a th:href="@{/discovery/sortuj(param='ocena')}">Ocen</a></li>
-                                <li><a th:href="@{/discovery/sortuj(param='ranking')}">Ranking</a></li>
-                                <li><a th:href="@{/discovery/sortuj(param='komenty')}">Licznbie komentaży</a></li>
-                            </ul>
-                        </div>
-                        <!-- ******** Wyszukiwanie ********* -->
-                        <form class="navbar-form navbar-right" role="search" th:action="@{/discovery/szukaj/tytul}" method="get">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="podaj tytuł" name="param" />
-                            </div>
-                            <button type="submit" class="btn btn-default">Szukaj: <span class="glyphicon glyphicon-search"></span></button>
-                        </form>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-</header>
+
+<th:block th:include="fragments/nav::navigation"></th:block>
 
 <!--*********************** Ciało znaleźisk ***********************-->
 <div class="container">
-    <div class="panel panel-default" th:each="listDiscovery: ${discoveryList}" th:object="${listDiscovery}">
-        <div class="panel-heading"><h4 th:text="*{title}">Title...</h4></div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="row">
-                        <div class="col-lg-4 tekst-center" style="font-size: 15px">
-                            <span class="glyphicon glyphicon-star-empty size"></span><br/>
-                            <span class="glyphicon glyphicon-star-empty"></span><br/>
-                            <span class="glyphicon glyphicon-star-empty"></span><br/>
-                            <span class="glyphicon glyphicon-star-empty"></span><br/>
-                            <span class="glyphicon glyphicon-star-empty"></span><br/>
-                            <span class="glyphicon glyphicon-star-empty"></span><br/>
-                            <span class="glyphicon glyphicon-star-empty"></span><br/>
-                        </div>
-                        <div class="col-lg-8">
-                            <a href="#"><div class="ocenianie">
-                                <span class="glyphicon glyphicon-thumbs-up"></span><br/>
-                            </div></a>
-                            <div class="ocenianie" >
-                                <p><i>Oceń</i></p>
+    <div th:each="listDiscovery: ${discoveryList}" th:object="${listDiscovery}">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 th:text="*{title}">Title...</h4></div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="row">
+                                        <div class="col-lg-4 tekst-center" style="font-size: 15px">
+                                            <span class="glyphicon glyphicon-star-empty size"></span><br/>
+                                            <span class="glyphicon glyphicon-star-empty"></span><br/>
+                                            <span class="glyphicon glyphicon-star-empty"></span><br/>
+                                            <span class="glyphicon glyphicon-star-empty"></span><br/>
+                                            <span class="glyphicon glyphicon-star-empty"></span><br/>
+                                            <span class="glyphicon glyphicon-star-empty"></span><br/>
+                                            <span class="glyphicon glyphicon-star-empty"></span><br/>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <a href="#"><div class="ocenianie">
+                                                <span class="glyphicon glyphicon-thumbs-up"></span><br/>
+                                            </div></a>
+                                            <div class="ocenianie" >
+                                                <p><i>Oceń</i></p>
+                                            </div>
+                                            <a href="#"><div class="ocenianie">
+                                                <span class="glyphicon glyphicon-thumbs-down"></span><br/>
+                                            </div></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-10" th:each="Idd:${listDiscovery.user}">
+                                    <small>Dodano przez:</small> <strong th:text="${Idd.nick}">Nick</strong>&ensp;&ensp;&ensp;<small>
+                                    <span class="glyphicon glyphicon-certificate"></span>
+                                    <span class="glyphicon glyphicon-certificate"></span>
+                                    <span class="glyphicon glyphicon-certificate"></span></small><br />
+                                    <small>Data:</small> 00.00.2000 <br/>
+                                    <small>time</small> 23.23<br />
+                                    Opis:<br />
+                                    <p>Jest dostępnych wiele różnych wersji Lorem Ipsum, ale większość
+                                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
+                                        które nawet w najmniejszym stopniu nie przypominają istniejących.
+                                        est dostępnych wiele różnych wersji Lorem Ipsum, ale większość
+                                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
+                                        które nawet w najmniejszym stopniu nie przypominają istniejących.
+                                        est dostępnych wiele różnych wersji Lorem Ipsum, ale większość
+                                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
+                                        które nawet w najmniejszym stopniu nie przypominają istniejących.
+                                        est dostępnych wiele różnych wersji Lorem Ipsum, ale większość
+                                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
+                                        które nawet w najmniejszym stopniu nie przypominają istniejących.
+                                    </p>
+
+                                    <a href="#"><button class="btn btn-inverse btn-xs">Źródło strony</button></a>
+                                    <a th:href="@{/discovery/comments/add(param=*{id})}"><button class="btn btn-info btn-xs">Dodaj komentarz</button></a>
+                                    <button type="button" class="btn btn-inverse btn-xs" data-toggle="collapse" th:attr="data-target='#collapseExample'+${listDiscovery.title}" aria-expanded="false">
+                                        Komentarze: <span class="caret"></span>
+                                    </button>
+
+                                </div>
                             </div>
-                            <a href="#"><div class="ocenianie">
-                                <span class="glyphicon glyphicon-thumbs-down"></span><br/>
-                            </div></a>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="collapse" th:id="'collapseExample'+${listDiscovery.title}">
+                                <div class="row" th:each="Aaa:${listDiscovery.commentsList}">
+                                    <div class="col-sm-offset-2 col-sm-1">
+                                        <div class="thumbnail">
+                                            <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+                                        </div><!-- /thumbnail -->
+                                    </div><!-- /col-sm-1 -->
+
+                                    <div class="col-sm-5">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <small>Dodano przez: </small><strong th:text="${Aaa.user.nick}">User name:</strong> <span class="text-muted">commented 5 days ago</span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <strong th:text="${Aaa.description}">Nick</strong>
+                                            </div><!-- /panel-body -->
+                                        </div><!-- /panel panel-default -->
+                                    </div><!-- /col-sm-5 -->
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-10" th:each="Idd:${listDiscovery.user}">
-                    <small>Dodano przez:</small> <strong th:text="${Idd.nick}">Nick</strong>&ensp;&ensp;&ensp;<small>
-                    <span class="glyphicon glyphicon-certificate"></span>
-                    <span class="glyphicon glyphicon-certificate"></span>
-                    <span class="glyphicon glyphicon-certificate"></span></small><br />
-                    <small>Data:</small> 00.00.2000 <br/>
-                    <small>time</small> 23.23<br />
-                    Opis:<br />
-                    <p>Jest dostępnych wiele różnych wersji Lorem Ipsum, ale większość
-                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
-                        które nawet w najmniejszym stopniu nie przypominają istniejących.
-                        est dostępnych wiele różnych wersji Lorem Ipsum, ale większość
-                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
-                        które nawet w najmniejszym stopniu nie przypominają istniejących.
-                        est dostępnych wiele różnych wersji Lorem Ipsum, ale większość
-                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
-                        które nawet w najmniejszym stopniu nie przypominają istniejących.
-                        est dostępnych wiele różnych wersji Lorem Ipsum, ale większość
-                        zmieniła się pod wpływem dodanego humoru czy przypadkowych słów,
-                        które nawet w najmniejszym stopniu nie przypominają istniejących.
-                    </p>
-                    <a href="#"><button class="btn btn-inverse btn-xs">Źródło strony</button></a>
-                    <a href="#"><button class="btn btn-info btn-xs">Komentarze</button></a>
-                </div>
             </div>
         </div>
     </div>
 </div>
-<!--********************** Komentarze *****************************-->
-<div class="container">
-    <div class="row">
-        <div class="col-sm-offset-2 col-sm-1">
-            <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-            </div><!-- /thumbnail -->
-        </div><!-- /col-sm-1 -->
 
-        <div class="col-sm-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div><!-- /panel-body -->
-            </div><!-- /panel panel-default -->
-        </div><!-- /col-sm-5 -->
-    </div>
-    <div class="row">
-
-        <div class="col-sm-offset-4 col-sm-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div><!-- /panel-body -->
-            </div><!-- /panel panel-default -->
-        </div><!-- /col-sm-5 -->
-
-        <div class="col-sm-1">
-            <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-            </div><!-- /thumbnail -->
-        </div><!-- /col-sm-1 -->
-    </div>
-    <div class="row">
-        <div class="col-sm-offset-2 col-sm-1">
-            <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-            </div><!-- /thumbnail -->
-        </div><!-- /col-sm-1 -->
-
-        <div class="col-sm-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div><!-- /panel-body -->
-            </div><!-- /panel panel-default -->
-        </div><!-- /col-sm-5 -->
-    </div>
-    <div class="row">
-
-        <div class="col-sm-offset-4 col-sm-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div><!-- /panel-body -->
-            </div><!-- /panel panel-default -->
-        </div><!-- /col-sm-5 -->
-
-        <div class="col-sm-1">
-            <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-            </div><!-- /thumbnail -->
-        </div><!-- /col-sm-1 -->
-    </div>
-</div>
-
-<!--********************** Footer (stopka) ************************-->
-<footer style="background-color: #262626;padding-top: 30px" class="white-text">
-    <div class="container">
-        <div class="row tekst-center">
-            <div class="col-md-4" >
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-            </div>
-            <div class="col-md-4">
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-            </div>
-            <div class="col-md-3">
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-                <p>kdjfkjdfkk</p>
-            </div>
-        </div>
-    </div>
-    <section style="background-color: #1F1F1F; padding: 5px">
-        <div class="container tekst-center" >
-            <h5>Copyright 2017 By Andrzej Imbirowycz (Wszelkie prawa zastrzeżone)</h5>
-        </div>
-    </section>
-</footer>
-
-<script src="webjars/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<!--<script src="webjars/jquery/2.0.3/jquery.min.js"></script>-->
+<th:block th:include="fragments/stopka::stopa"></th:block>
 
 </body>
 </html>
