@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/znaleziska.iml" filepath="$PROJECT_DIR$/znaleziska.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/znaleziska.iml" filepath="$PROJECT_DIR$/.idea/modules/znaleziska.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/znaleziska_main.iml" filepath="$PROJECT_DIR$/.idea/modules/znaleziska_main.iml" group="znaleziska" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/znaleziska_test.iml" filepath="$PROJECT_DIR$/.idea/modules/znaleziska_test.iml" group="znaleziska" />
     </modules>

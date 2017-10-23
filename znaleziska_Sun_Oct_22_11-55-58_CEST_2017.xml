@@ -54,14 +54,15 @@
   
   <!-- JDK definitions -->
   
-  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
-  <path id="jdk.classpath.1.8">
-    <fileset dir="${jdk.home.1.8}">
+  <property name="jdk.bin.1.8_(3)" value="${jdk.home.1.8_(3)}/bin"/>
+  <path id="jdk.classpath.1.8_(3)">
+    <fileset dir="${jdk.home.1.8_(3)}">
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/charsets.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/cldrdata.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/dnsns.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/icedtea-sound.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/jaccess.jar"/>
+      <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/jfxrt.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/localedata.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/nashorn.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/sunec.jar"/>
@@ -69,6 +70,7 @@
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/sunpkcs11.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/ext/zipfs.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/jce.jar"/>
+      <include name="../java-1.8.0-openjdk-amd64/jre/lib/jfxswt.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/jsse.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/management-agent.jar"/>
       <include name="../java-1.8.0-openjdk-amd64/jre/lib/resources.jar"/>
@@ -76,9 +78,9 @@
     </fileset>
   </path>
   
-  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
-  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
-  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  <property name="project.jdk.home" value="${jdk.home.1.8_(3)}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8_(3)}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8_(3)"/>
   
   
   <!-- Project Libraries -->
@@ -151,12 +153,12 @@
     <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/net.minidev/json-smart/2.2.1/5b9e5df7a62d1279b70dc882b041d249c4f0b002/json-smart-2.2.1.jar"/>
   </path>
   
-  <path id="library.gradle:_nz.net.ultraq.thymeleaf:thymeleaf-expression-processor:1.1.0.classpath">
-    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-expression-processor/1.1.0/6122349b3fc4186d72c1805e0efa634256903e2b/thymeleaf-expression-processor-1.1.0.jar"/>
+  <path id="library.gradle:_nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.4.0.classpath">
+    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect/1.4.0/8d7810c069ed1534b9631fb1e85c35973546086/thymeleaf-layout-dialect-1.4.0.jar"/>
   </path>
   
-  <path id="library.gradle:_nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.0.classpath">
-    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect/2.0.0/a26a85ef3625f9d8de1adde4e238720ec1686b7b/thymeleaf-layout-dialect-2.0.0.jar"/>
+  <path id="library.gradle:_ognl:ognl:3.0.8.classpath">
+    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/ognl/ognl/3.0.8/37e1aebfde7eb7baebc9ad4f85116ef9009c5fc5/ognl-3.0.8.jar"/>
   </path>
   
   <path id="library.gradle:_org.apache.tomcat.embed:tomcat-embed-core:8.5.20.classpath">
@@ -185,10 +187,6 @@
   
   <path id="library.gradle:_org.assertj:assertj-core:2.6.0.classpath">
     <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.assertj/assertj-core/2.6.0/b532c3fc4f66bcfee4989a3514f1cd56203a33ad/assertj-core-2.6.0.jar"/>
-  </path>
-  
-  <path id="library.gradle:_org.attoparser:attoparser:2.0.0.release.classpath">
-    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.attoparser/attoparser/2.0.0.RELEASE/c139ec3be4169da28ca1007689db2d6a4abe6b34/attoparser-2.0.0.RELEASE.jar"/>
   </path>
   
   <path id="library.gradle:_org.codehaus.groovy:groovy:2.4.12.classpath">
@@ -399,20 +397,16 @@
     <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.3.11.RELEASE/814f91ec4dc324e724bbe7cbc5045b234604c539/spring-webmvc-4.3.11.RELEASE.jar"/>
   </path>
   
-  <path id="library.gradle:_org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.1.release.classpath">
-    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.thymeleaf.extras/thymeleaf-extras-springsecurity4/3.0.1.RELEASE/6d190bc54defea0707d1d0969b12eea1f55fa293/thymeleaf-extras-springsecurity4-3.0.1.RELEASE.jar"/>
+  <path id="library.gradle:_org.thymeleaf:thymeleaf-spring4:2.1.5.release.classpath">
+    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring4/2.1.5.RELEASE/74cb9028e99597b5d71a98e919fd531a7fc290b4/thymeleaf-spring4-2.1.5.RELEASE.jar"/>
   </path>
   
-  <path id="library.gradle:_org.thymeleaf:thymeleaf-spring4:3.0.1.release.classpath">
-    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring4/3.0.1.RELEASE/d613783d602795748fe51eb5bfa4af707be592fa/thymeleaf-spring4-3.0.1.RELEASE.jar"/>
+  <path id="library.gradle:_org.thymeleaf:thymeleaf:2.1.5.release.classpath">
+    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf/2.1.5.RELEASE/513bffa3daaac277460c1a0a2dccb228fa40569e/thymeleaf-2.1.5.RELEASE.jar"/>
   </path>
   
-  <path id="library.gradle:_org.thymeleaf:thymeleaf:3.0.1.release.classpath">
-    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf/3.0.1.RELEASE/21a8d9d296aaf622a72fed3bd7b0f625ba5c3836/thymeleaf-3.0.1.RELEASE.jar"/>
-  </path>
-  
-  <path id="library.gradle:_org.unbescape:unbescape:1.1.3.release.classpath">
-    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.unbescape/unbescape/1.1.3.RELEASE/7bc2ae80017a41a3b18706a249e8342fbbffa469/unbescape-1.1.3.RELEASE.jar"/>
+  <path id="library.gradle:_org.unbescape:unbescape:1.1.0.release.classpath">
+    <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.unbescape/unbescape/1.1.0.RELEASE/ab0db4fe0a6fa89fb8da2a40008a4e63a7f3f5b9/unbescape-1.1.0.RELEASE.jar"/>
   </path>
   
   <path id="library.gradle:_org.webjars:bootstrap:3.3.1.classpath">
@@ -426,6 +420,9 @@
   <path id="library.gradle:_org.yaml:snakeyaml:1.17.classpath">
     <pathelement location="${basedir}/../../../.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.17/7a27ea250c5130b2922b86dea63cbb1cc10a660c/snakeyaml-1.17.jar"/>
   </path>
+  
+  
+  <!-- Application Server Libraries -->
   <!-- Register Custom Compiler Taskdefs -->
   <property name="javac2.home" value="${idea.home}/lib"/>
   <path id="javac2.classpath">
@@ -441,6 +438,8 @@
   
   <!-- Modules -->
   
+  <import file="${basedir}/module_znaleziska.xml"/>
+  
   <import file="${basedir}/.idea/modules/module_znaleziska_main.xml"/>
   
   <import file="${basedir}/.idea/modules/module_znaleziska_test.xml"/>
@@ -449,9 +448,9 @@
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.znaleziska_main, clean.module.znaleziska_test" description="cleanup all"/>
+  <target name="clean" depends="clean.module.znaleziska, clean.module.znaleziska_main, clean.module.znaleziska_test" description="cleanup all"/>
   
-  <target name="build.modules" depends="init, clean, compile.module.znaleziska_main, compile.module.znaleziska_test" description="build all modules"/>
+  <target name="build.modules" depends="init, clean, compile.module.znaleziska, compile.module.znaleziska_main, compile.module.znaleziska_test" description="build all modules"/>
   
   <target name="all" depends="build.modules" description="build all"/>
 </project>
